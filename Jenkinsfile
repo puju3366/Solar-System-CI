@@ -27,7 +27,7 @@ pipeline {
 
     stage('Push Image') {
       steps {
-        withDockerRegistry([credentialsId: "Docker", url: "https://hub.docker.com"]) {
+        withDockerRegistry([credentialsId: "Docker"]) {
           sh 'docker push ${IMAGE_REGISTRY}/${IMAGE_REPO}/${NAME}:${VERSION}'
         }
       }
