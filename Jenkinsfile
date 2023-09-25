@@ -36,12 +36,12 @@ pipeline {
     stage('Clone/Pull Repo') {
       steps {
         script {
-          if (fileExists('gitops-argocd')) {
+          if (fileExists('argocd')) {
 
             echo 'Cloned repo already exists - Pulling latest changes'
 
-            dir("gitops-argocd") {
-              sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
+            dir("argocd") {
+              // sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
               sh 'git pull'
             }
 
@@ -51,7 +51,7 @@ pipeline {
           }
         }
       }
-    }
+    }            
     
     stage('Update Manifest') {
       steps {
