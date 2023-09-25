@@ -6,7 +6,7 @@ pipeline {
     VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
     IMAGE_REPO = "solar-system"
     IMAGE_REGISTRY = "puju3366"
-    // ARGOCD_TOKEN = credentials('argocd-cred')
+    ARGOCD_TOKEN = credentials('argocd')
     GITHUB_TOKEN = credentials('Github')
   }
   
@@ -41,13 +41,13 @@ pipeline {
             echo 'Cloned repo already exists - Pulling latest changes'
 
             dir("gitops-argocd") {
-              sh 'git remote set-url origin http://bob:bob%40123@controlplane:3000/bob/gitops-argocd'
+              sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
               sh 'git pull'
             }
 
           } else {
             echo 'Repo does not exists - Cloning the repo'
-            sh 'git clone -b feature-gitea http://bob:bob%40123@controlplane:3000/bob/gitops-argocd'
+            sh 'git clone -b feature https://github.com/puju3366/Solar-System-Gitops-CD.git'
           }
         }
       }
@@ -55,8 +55,8 @@ pipeline {
     
     stage('Update Manifest') {
       steps {
-        dir("gitops-argocd") {
-          sh 'sed -i "s#siddharth67.*#${IMAGE_REGISTRY}/${IMAGE_REPO}/${NAME}:${VERSION}#g" jenkins-demo/deployment.yaml'
+        dir("argocd") {
+          sh 'sed -i "s#siddharth6.*#${IMAGE_REGISTRY}/${IMAGE_REPO}-${NAME}:${VERSION}#g" jenkins-demo/deployment.yaml'
           sh 'cat jenkins-demo/deployment.yaml'
         }
       }
@@ -64,13 +64,13 @@ pipeline {
 
     stage('Commit & Push') {
       steps {
-        dir("gitops-argocd") {
+        dir("argocd") {
           sh "git config --global user.email 'bob@controlplane'"
-          sh 'git remote set-url origin http://bob:bob%40123@controlplane:3000/bob/gitops-argocd'
-          sh 'git checkout feature-gitea'
+          sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
+          sh 'git checkout feature'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
-          sh 'git push origin feature-gitea'
+          sh 'git push origin feature'
         }
       }
     }
