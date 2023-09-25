@@ -36,11 +36,11 @@ pipeline {
     stage('Clone/Pull Repo') {
       steps {
         script {
-          if (fileExists('argocd')) {
+          if (fileExists('Solar-System-Gitops-CD')) {
 
             echo 'Cloned repo already exists - Pulling latest changes'
 
-            dir("argocd") {
+            dir("Solar-System-Gitops-CD") {
           
               sh 'git pull '
             }
@@ -55,7 +55,7 @@ pipeline {
     
     stage('Update Manifest') {
       steps {
-        dir("argocd") {
+        dir("Solar-System-Gitops-CD") {
           sh 'sed -i "s#siddharth6.*#${IMAGE_REGISTRY}/${IMAGE_REPO}-${NAME}:${VERSION}#g" jenkins-demo/deployment.yaml' 
           sh 'cat jenkins-demo/deployment.yaml'
         }
