@@ -56,7 +56,7 @@ pipeline {
     stage('Update Manifest') {
       steps {
         dir("argocd") {
-          sh 'sed -i "s#siddharth6.*#${IMAGE_REGISTRY}/${IMAGE_REPO}-${NAME}:${VERSION}#g" jenkins-demo/deployment.yaml'
+          sh 'sed -i "s#siddharth6.*#${IMAGE_REGISTRY}/${IMAGE_REPO}-${NAME}:${VERSION}#g" jenkins-demo/deployment.yaml' #
           sh 'cat jenkins-demo/deployment.yaml'
         }
       }
