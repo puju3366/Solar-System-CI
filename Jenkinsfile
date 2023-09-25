@@ -5,7 +5,7 @@ pipeline {
     NAME = "solar-system-9"
     VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
     IMAGE_REPO = "solar-system"
-    IMAGE_REGISTRY = "puju3366:5000"
+    IMAGE_REGISTRY = "puju3366"
     // ARGOCD_TOKEN = credentials('argocd-cred')
     GITHUB_TOKEN = credentials('Github')
   }
