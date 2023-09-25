@@ -7,7 +7,7 @@ pipeline {
     IMAGE_REPO = "solar-system"
     IMAGE_REGISTRY = "docker-registry:5000"
     ARGOCD_TOKEN = credentials('argocd-cred')
-    GITHUB_TOKEN = credentials('Github')
+    GITHUB_TOKEN = credentials('1')
   }
   
   stages {
