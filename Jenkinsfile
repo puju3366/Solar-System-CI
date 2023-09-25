@@ -41,7 +41,7 @@ pipeline {
             echo 'Cloned repo already exists - Pulling latest changes'
 
             dir("argocd") {
-              // sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
+              sh 'git remote add origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
               sh 'git pull'
             }
 
