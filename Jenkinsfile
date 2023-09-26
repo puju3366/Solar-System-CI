@@ -53,14 +53,14 @@ pipeline {
       }
     }
     
-    stage('Update Manifest') {
-      steps {
-        dir("Solar-System-Gitops-CD") {
-          sh 'sed -i "s#puju3366.*#${IMAGE_REGISTRY}/${IMAGE_REPO}-${NAME}:${VERSION}#g" jenkins-demo/deployment.yaml'
-          sh 'cat jenkins-demo/deployment.yaml'
-        }
-      }
-    }
+    // stage('Update Manifest') {
+    //   steps {
+    //     dir("Solar-System-Gitops-CD") {
+    //       sh 'sed -i "s#puju3366.*#${IMAGE_REGISTRY}/${IMAGE_REPO}-${NAME}:${VERSION}#g" jenkins-demo/deployment.yaml'
+    //       sh 'cat jenkins-demo/deployment.yaml'
+    //     }
+    //   }
+    // }
 
 
 
@@ -69,6 +69,8 @@ stage('Checkout') {
    steps {
 	   dir("Solar-System-Gitops-CD"){
    git branch: 'feature', credentialsId: 'Github', url: 'https://github.com/puju3366/Solar-System-CI.git'
+   sh 'sed -i "s#puju3366.*#${IMAGE_REGISTRY}/${IMAGE_REPO}-${NAME}:${VERSION}#g" jenkins-demo/deployment.yaml'
+   sh 'cat jenkins-demo/deployment.yaml'
    // sh "git config --global user.email 'bob@controlplane'"
    // sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
    // sh 'git checkout feature'
