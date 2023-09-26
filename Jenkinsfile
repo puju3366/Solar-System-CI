@@ -30,7 +30,8 @@ pipeline {
           withDockerRegistry(credentialsId: 'Docker', url: '') {
           sh 'docker push ${IMAGE_REGISTRY}/${IMAGE_REPO}-${NAME}:${VERSION}'
       }
-    }
+      }  
+  }
 
     stage('Clone/Pull Repo') {
       steps {
