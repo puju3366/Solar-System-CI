@@ -64,9 +64,7 @@ pipeline {
 
 
 
-   stage('Checkout') {
-       git branch: 'lts-1.532', credentialsId: '82aa2d26-ef4b-4a6a-a05f-2e1090b9ce17', url: 'git@github.com:jenkinsci/maven-plugin.git'
-   }
+  
 
     
     stage('Commit & Push') {
