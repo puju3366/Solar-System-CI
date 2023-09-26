@@ -7,7 +7,7 @@ pipeline {
     IMAGE_REPO = "solar-system"
     IMAGE_REGISTRY = "puju3366"
     ARGOCD_TOKEN = credentials('argocd')
-    GITHUB_TOKEN = credentials('Github')
+    GITEA_TOKEN = credentials('Github')
   }
   
   stages {
@@ -27,9 +27,7 @@ pipeline {
 
     stage('Push Image') {
       steps {
-        withDockerRegistry([ credentialsId: "Docker", url: "" ]) {
           sh 'docker push ${IMAGE_REGISTRY}/${IMAGE_REPO}-${NAME}:${VERSION}'
-        }
       }
     }
 
@@ -40,9 +38,9 @@ pipeline {
 
             echo 'Cloned repo already exists - Pulling latest changes'
 
-            dir('Solar-System-Gitops-CD') {
+            dir("Solar-System-Gitops-CD") {
               sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
-              sh 'git pull '
+              sh 'git pull'
             }
 
           } else {
@@ -51,12 +49,12 @@ pipeline {
           }
         }
       }
-    }            
+    }
     
     stage('Update Manifest') {
       steps {
-        dir('Solar-System-Gitops-CD') {
-          sh 'sed -i "s#siddharth6.*#${IMAGE_REGISTRY}/${IMAGE_REPO}-${NAME}:${VERSION}#g" jenkins-demo/deployment.yaml' 
+        dir("Solar-System-Gitops-CD") {
+          sh 'sed -i "s#siddharth67.*#${IMAGE_REGISTRY}/${IMAGE_REPO}/${NAME}:${VERSION}#g" jenkins-demo/deployment.yaml'
           sh 'cat jenkins-demo/deployment.yaml'
         }
       }
@@ -64,7 +62,7 @@ pipeline {
 
     stage('Commit & Push') {
       steps {
-        dir('Solar-System-Gitops-CD') {
+        dir("Solar-System-Gitops-CD") {
           sh "git config --global user.email 'bob@controlplane'"
           sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
           sh 'git checkout feature'
