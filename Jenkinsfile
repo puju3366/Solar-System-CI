@@ -77,7 +77,7 @@ pipeline {
           sh 'git checkout feature'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
-          sh 'git push origin feature'
+          sh 'git push '
         }
       }
     }
