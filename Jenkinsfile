@@ -70,7 +70,8 @@ pipeline {
     stage('Commit & Push') {
       steps {
         dir("Solar-System-Gitops-CD") {
-          git branch: 'feature', credentialsId: 'Github', url: 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
+          sh "git config --global user.email 'bob@controlplane'"
+          git branch: 'feature', credentialsId: 'Github', url: 'https://github.com/puju3366/Solar-System-Gitops-CD.git'
           // sh "git config --global user.email 'bob@controlplane'"
           // sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
           sh 'git checkout feature'
