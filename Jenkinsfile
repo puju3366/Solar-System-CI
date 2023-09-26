@@ -36,11 +36,11 @@ pipeline {
     stage('Clone/Pull Repo') {
       steps {
         script {
-          if (fileExists('Solar-System-Gitops-CD')) {
+          if (fileExists('argocd')) {
 
             echo 'Cloned repo already exists - Pulling latest changes'
 
-            dir("Solar-System-Gitops-CD") {
+            dir("argocd'") {
               sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
               sh 'git pull '
             }
@@ -55,7 +55,7 @@ pipeline {
     
     stage('Update Manifest') {
       steps {
-        dir("Solar-System-Gitops-CD") {
+        dir("argocd'") {
           sh 'sed -i "s#siddharth6.*#${IMAGE_REGISTRY}/${IMAGE_REPO}-${NAME}:${VERSION}#g" jenkins-demo/deployment.yaml' 
           sh 'cat jenkins-demo/deployment.yaml'
         }
@@ -64,7 +64,7 @@ pipeline {
 
     stage('Commit & Push') {
       steps {
-        dir("Solar-System-Gitops-CD") {
+        dir("argocd'") {
           sh "git config --global user.email 'bob@controlplane'"
           sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
           sh 'git checkout feature'
