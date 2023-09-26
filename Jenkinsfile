@@ -76,7 +76,7 @@ stage('Checkout') {
    // sh 'git checkout feature'
    sh 'git add -A'
    sh "git commit -am 'Updated image version for Build - \$VERSION'"
-   sh 'git push'
+   sh 'git push --set-upstream origin feature'
 	   }
 	}
 }
