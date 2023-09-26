@@ -70,25 +70,10 @@ pipeline {
     stage('Commit & Push') {
       steps {
         dir("Solar-System-Gitops-CD") {
-		withCredentials([usernamePassword(credentialsId: 'Github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-    sh '''
-        sh "git config --global user.email 'bob@controlplane'"
-          // git branch: 'feature', credentialsId: 'Github', url: 'https://github.com/puju3366/Solar-System-Gitops-CD.git'
-          // sh "git config --global user.email 'bob@controlplane'"
-          // sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
-          sh 'git checkout feature'
-          sh 'git add -A'
-          sh 'git commit -am "Updated image version for Build - $VERSION"'
-    '''
-}
+		sshagent (credentials: ['jenkins_gitea']) {
+	sh("git config --global user.email 'bob@controlplane && git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git  && git checkout feature && git add -A && git commit -am 'Updated image version for Build - $VERSION' && git push --set-upstream origin feature")
+	}
           
-      //     sh "git config --global user.email 'bob@controlplane'"
-      //     // git branch: 'feature', credentialsId: 'Github', url: 'https://github.com/puju3366/Solar-System-Gitops-CD.git'
-      //     // sh "git config --global user.email 'bob@controlplane'"
-      //     // sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
-      //     sh 'git checkout feature'
-      //     sh 'git add -A'
-      //     sh 'git commit -am "Updated image version for Build - $VERSION"'
 
         }
         
