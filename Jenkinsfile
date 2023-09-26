@@ -62,11 +62,19 @@ pipeline {
       }
     }
 
+
+
+   stage('Checkout') {
+       git branch: 'lts-1.532', credentialsId: '82aa2d26-ef4b-4a6a-a05f-2e1090b9ce17', url: 'git@github.com:jenkinsci/maven-plugin.git'
+   }
+
+    
     stage('Commit & Push') {
       steps {
         dir("Solar-System-Gitops-CD") {
-          sh "git config --global user.email 'bob@controlplane'"
-          sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
+          git branch: 'feature', credentialsId: 'Github', url: 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
+          // sh "git config --global user.email 'bob@controlplane'"
+          // sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
           sh 'git checkout feature'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
