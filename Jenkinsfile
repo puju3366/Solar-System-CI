@@ -78,8 +78,9 @@ withCredentials([gitUsernamePassword(credentialsId: 'Github', gitToolName: 'git-
    sh "git commit -am 'Updated image version for Build - \$VERSION'"
    sh 'git push --set-upstream origin feature'
 }
-
-
+	   }
+   }
+}
 
     
 
