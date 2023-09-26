@@ -41,8 +41,8 @@ pipeline {
             echo 'Cloned repo already exists - Pulling latest changes'
 
             dir("Solar-System-Gitops-CD") {
-               sh 'git remote add origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
-              sh 'git pull origin feature'
+               // sh 'git remote add origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
+              sh 'git pull'
             }
 
           } else {
