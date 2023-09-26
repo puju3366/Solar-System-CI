@@ -70,19 +70,29 @@ pipeline {
     stage('Commit & Push') {
       steps {
         dir("Solar-System-Gitops-CD") {
-          
-          sh "git config --global user.email 'bob@controlplane'"
+		withCredentials([usernamePassword(credentialsId: 'Github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+    sh '''
+        sh "git config --global user.email 'bob@controlplane'"
           // git branch: 'feature', credentialsId: 'Github', url: 'https://github.com/puju3366/Solar-System-Gitops-CD.git'
           // sh "git config --global user.email 'bob@controlplane'"
           // sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
           sh 'git checkout feature'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
-          git(credentials: ['Github']) {
-									sh('git push --set-upstream origin feature')
-          }
+    '''
+}
+          
+      //     sh "git config --global user.email 'bob@controlplane'"
+      //     // git branch: 'feature', credentialsId: 'Github', url: 'https://github.com/puju3366/Solar-System-Gitops-CD.git'
+      //     // sh "git config --global user.email 'bob@controlplane'"
+      //     // sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
+      //     sh 'git checkout feature'
+      //     sh 'git add -A'
+      //     sh 'git commit -am "Updated image version for Build - $VERSION"'
+
         }
-      }
+        
+     }
     }
 
     // stage('Raise PR') {
