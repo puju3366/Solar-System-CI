@@ -66,6 +66,8 @@ pipeline {
 
   
 stage('Checkout') {
+   steps {
+	   dir("Solar-System-Gitops-CD"){
    git branch: 'feature', credentialsId: 'Github', url: 'https://github.com/puju3366/Solar-System-Gitops-CD.git'
    sh "git config --global user.email 'bob@controlplane'"
    sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
@@ -73,7 +75,10 @@ stage('Checkout') {
    sh 'git add -A'
    sh "git commit -am 'Updated image version for Build - \$VERSION'"
    sh 'git push --set-upstream origin feature'
+	   }
+	}
 }
+
 
     
  //    stage('Commit & Push') {
