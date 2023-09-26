@@ -70,6 +70,7 @@ pipeline {
     stage('Commit & Push') {
       steps {
         dir("Solar-System-Gitops-CD") {
+          
           sh "git config --global user.email 'bob@controlplane'"
           // git branch: 'feature', credentialsId: 'Github', url: 'https://github.com/puju3366/Solar-System-Gitops-CD.git'
           // sh "git config --global user.email 'bob@controlplane'"
@@ -77,7 +78,9 @@ pipeline {
           sh 'git checkout feature'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
-          sh 'git push --set-upstream origin feature'
+          git(credentials: ['Github']) {
+									sh('git push --set-upstream origin feature')
+          }
         }
       }
     }
