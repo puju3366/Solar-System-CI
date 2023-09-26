@@ -56,7 +56,7 @@ pipeline {
     stage('Update Manifest') {
       steps {
         dir("Solar-System-Gitops-CD") {
-          sh 'sed -i "s#puju3366.*#${IMAGE_REGISTRY}/${IMAGE_REPO}/${NAME}:${VERSION}#g" jenkins-demo/deployment.yaml'
+          sh 'sed -i "s#puju3366.*#${IMAGE_REGISTRY}/${IMAGE_REPO}-${NAME}:${VERSION}#g" jenkins-demo/deployment.yaml'
           sh 'cat jenkins-demo/deployment.yaml'
         }
       }
