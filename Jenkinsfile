@@ -55,7 +55,7 @@ pipeline {
     
     stage('Update Manifest') {
       steps {
-        dir("Solar-System-Gitops-CD") {
+        dir("Solar-System-Gitops-CD") {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
           sh 'sed -i "s#puju3366.*#${IMAGE_REGISTRY}/${IMAGE_REPO}-${NAME}:${VERSION}#g" jenkins-demo/deployment.yaml'
           sh 'cat jenkins-demo/deployment.yaml'
         }
@@ -108,10 +108,12 @@ withCredentials([gitUsernamePassword(credentialsId: 'Github', gitToolName: 'git-
                 // Merge the feature branch into the main branch
 		dir("Solar-System-Gitops-CD"){
 withCredentials([gitUsernamePassword(credentialsId: 'Github', gitToolName: 'git-tool')]) {
-   sh 'git checkout feature'
-                
-                sh "git merge --no-ff origin feature"
-                sh "git push origin main"
+   sh 'git checkout main'
+
+		
+                sh "git merge feature"
+		
+                sh "git push"
 }
             }
         }
