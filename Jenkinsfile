@@ -110,7 +110,7 @@ withCredentials([gitUsernamePassword(credentialsId: 'Github', gitToolName: 'git-
 withCredentials([gitUsernamePassword(credentialsId: 'Github', gitToolName: 'git-tool')]) {
    sh 'git checkout feature'
                 
-                sh "git merge --no-ff feature"
+                sh "git merge --no-ff origin feature"
                 sh "git push origin main"
 }
             }
