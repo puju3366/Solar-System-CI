@@ -7,7 +7,7 @@ pipeline {
     IMAGE_REPO = "solar-system"
     IMAGE_REGISTRY = "puju3366"
     ARGOCD_TOKEN = credentials('argocd')
-    GITEA_TOKEN = credentials('Github')
+    GITEA_TOKEN = credentials('github')
   }
   
   stages {
@@ -68,7 +68,7 @@ pipeline {
 stage('Checkout') {
    steps {
 	   dir("Solar-System-Gitops-CD"){
-// withCredentials([gitUsernamePassword(credentialsId: 'Github', gitToolName: 'git-tool')]) {
+ withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'git-tool')]) {
    sh 'git checkout feature'
    sh 'git add -A'
    sh "git commit -am 'Updated image version for Build - \$VERSION'"
@@ -76,7 +76,7 @@ stage('Checkout') {
 }
 	   }
    }
-
+}
 
 
     
