@@ -5,7 +5,7 @@ echo '<!DOCTYPE html>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <style>
 		#solar-system {
-		   background: url("<gitea-url>/bob/solar-system-9/raw/branch/master/images/solar-system-9.png")   center center;
+		   background: url("<gitea-url>/bob/solar-system-9/raw/branch/master/images/solar-system-3.png")   center center;
            background-repeat: no-repeat;			  
 		   background-size: cover;
 		   content: "";
