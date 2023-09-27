@@ -5,7 +5,7 @@ echo '<!DOCTYPE html>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <style>
 		#solar-system {
-		   background: url("<gitea-url>/bob/solar-system-9/raw/branch/master/images/solar-system-3.png")   center center;
+		   background: url("https://github.com/puju3366/Solar-System-CI/blob/dev/images/solar-system-3.png")   center center;
            background-repeat: no-repeat;			  
 		   background-size: cover;
 		   content: "";
@@ -23,7 +23,7 @@ echo '<!DOCTYPE html>
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background: url("<gitea-url>/bob/solar-system-9/raw/branch/master/images/background.png");
+			background: url("https://github.com/puju3366/Solar-System-CI/blob/dev/images/background.png");
 		}
 		
 /* 		.shadow {
