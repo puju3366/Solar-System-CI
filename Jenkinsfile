@@ -68,7 +68,7 @@ pipeline {
 stage('Checkout') {
    steps {
 	   dir("Solar-System-Gitops-CD"){
-withCredentials([gitUsernamePassword(credentialsId: 'Github', gitToolName: 'git-tool')]) {
+// withCredentials([gitUsernamePassword(credentialsId: 'Github', gitToolName: 'git-tool')]) {
    sh 'git checkout feature'
    sh 'git add -A'
    sh "git commit -am 'Updated image version for Build - \$VERSION'"
@@ -76,7 +76,7 @@ withCredentials([gitUsernamePassword(credentialsId: 'Github', gitToolName: 'git-
 }
 	   }
    }
-}
+
 
 
     
