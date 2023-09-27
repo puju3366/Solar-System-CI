@@ -42,7 +42,7 @@ pipeline {
 
             dir("Solar-System-Gitops-CD") {
               sh 'git remote set-url origin https://github.com/puju3366/Solar-System-Gitops-CD.git'
-              sh 'git pull origin feature'
+              sh 'git pull'
             }
 
           } else {
