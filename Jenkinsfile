@@ -78,6 +78,44 @@ withCredentials([gitUsernamePassword(credentialsId: 'Github', gitToolName: 'git-
    }
 }
 
+
+        stage('Approve Merge') {
+            steps {
+                script {
+                    // Pause the pipeline and wait for manual approval
+                    def userInput = input(
+                        id: 'userInput',
+                        message: 'Do you want to merge this branch?',
+                        parameters: [
+                            choice(name: 'APPROVE', choices: 'Yes\nNo', description: 'Approve the merge?')
+                        ]
+                    )
+
+                    // Check the user's choice
+                    if (userInput == 'Yes') {
+                        currentBuild.resultIsBetterOrEqualTo('SUCCESS')
+                    } else {
+                        currentBuild.resultIsWorseOrEqualTo('FAILURE')
+                    }
+                }
+            }
+        }
+        stage('Merge to Main') {
+            when {
+                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
+            }
+            steps {
+                // Merge the feature branch into the main branch
+		dir("Solar-System-Gitops-CD"){
+withCredentials([gitUsernamePassword(credentialsId: 'Github', gitToolName: 'git-tool')]) {
+   sh 'git checkout feature'
+                
+                sh "git merge --no-ff feature"
+                sh "git push origin main"
+}
+            }
+        }
+	}
     
 
 
